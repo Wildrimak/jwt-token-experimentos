@@ -1,4 +1,4 @@
-package br.com.wildrimak.jwt.api.controllers;
+package br.com.wildrimak.jwt.api.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,12 +16,10 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-import br.com.wildrimak.jwt.api.security.JWTAutenticarFilter;
-
 public class JWTValidarFilter extends BasicAuthenticationFilter {
 
     public static final String HEADER_ATRIBUTO = "Authorization";
-    public static final String ATRIBUTO_PREFIXO = "Bearer";
+    public static final String ATRIBUTO_PREFIXO = "Bearer ";
 
     public JWTValidarFilter(AuthenticationManager authenticationManager) {
 	super(authenticationManager);
@@ -42,8 +40,11 @@ public class JWTValidarFilter extends BasicAuthenticationFilter {
 	    chain.doFilter(request, response);
 	    return;
 	}
-
+	
+	System.out.println("\n\nAtributo: " + atributo);
 	String token = atributo.replace(ATRIBUTO_PREFIXO, "");
+	System.out.println("\n\ntoken:" + token);
+
 	UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
 
 	SecurityContextHolder.getContext().setAuthentication(authenticationToken);
