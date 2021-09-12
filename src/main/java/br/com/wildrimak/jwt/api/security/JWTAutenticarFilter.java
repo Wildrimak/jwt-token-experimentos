@@ -19,7 +19,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.wildrimak.jwt.api.data.DetalheUsuarioData;
 import br.com.wildrimak.jwt.domain.models.Usuario;
 
 public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {

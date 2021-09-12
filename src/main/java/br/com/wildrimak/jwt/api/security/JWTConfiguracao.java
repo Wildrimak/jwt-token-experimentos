@@ -1,4 +1,4 @@
-package br.com.wildrimak.jwt.api.configs;
+package br.com.wildrimak.jwt.api.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import br.com.wildrimak.jwt.api.data.DetalheUsuarioServiceImpl;
-import br.com.wildrimak.jwt.api.security.JWTAutenticarFilter;
-import br.com.wildrimak.jwt.api.security.JWTValidarFilter;
 
 @Configuration
 @EnableWebSecurity

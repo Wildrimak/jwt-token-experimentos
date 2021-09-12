@@ -1,4 +1,4 @@
-package br.com.wildrimak.jwt.api.data;
+package br.com.wildrimak.jwt.api.security;
 
 import java.util.Optional;
 
