@@ -14,6 +14,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import br.com.wildrimak.jwt.domain.repositories.UsuarioRepository;
+
 @Configuration
 @EnableWebSecurity
 public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
@@ -27,6 +29,9 @@ public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -38,10 +43,15 @@ public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-	http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll().and()
-		.authorizeRequests().antMatchers(HttpMethod.POST, "/usuarios").permitAll().anyRequest().authenticated()
+	http.csrf().disable()
+		.authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll()
+		.and()
+		.authorizeRequests().antMatchers(HttpMethod.POST, "/usuarios").permitAll()
+		.and()
+		.authorizeRequests().antMatchers(HttpMethod.GET, "/usuarios").hasAuthority("ADMIN")
+		.anyRequest().authenticated()
 		.and().addFilter(new JWTAutenticarFilter(authenticationManager()))
-		.addFilter(new JWTValidarFilter(authenticationManager())).sessionManagement()
+		.addFilter(new JWTValidarFilter(authenticationManager(), usuarioRepository)).sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 	// http.rememberMe().disable();

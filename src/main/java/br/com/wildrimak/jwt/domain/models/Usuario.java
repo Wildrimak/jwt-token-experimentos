@@ -1,6 +1,8 @@
 package br.com.wildrimak.jwt.domain.models;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +26,11 @@ public class Usuario {
     @NotEmpty
     private String nome;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     private Usuario() {
+	this.role = Role.NORMAL;
     }
 
     public Usuario(@Email @NotEmpty String email, @NotEmpty String password, @NotEmpty String nome) {
@@ -64,6 +70,14 @@ public class Usuario {
 
     public void setNome(String nome) {
 	this.nome = nome;
+    }
+
+    public Role getRole() {
+	return role;
+    }
+    
+    public void setRole(Role role) {
+	this.role = role;
     }
 
 }

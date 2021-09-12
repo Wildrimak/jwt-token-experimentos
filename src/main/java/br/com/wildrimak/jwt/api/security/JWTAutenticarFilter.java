@@ -1,7 +1,6 @@
 package br.com.wildrimak.jwt.api.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.FilterChain;
@@ -45,7 +44,7 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
 			    new UsernamePasswordAuthenticationToken(
 				    usuario.getEmail(), 
 				    usuario.getPassword(),
-				    new ArrayList<>()));
+				    usuario.getRole().getAuthorities()));
 	
 	} catch (IOException e) {
 	    throw new RuntimeException("Falha ao autenticar usuário: ", e);

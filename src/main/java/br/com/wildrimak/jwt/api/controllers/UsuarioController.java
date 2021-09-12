@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.wildrimak.jwt.domain.models.Role;
 import br.com.wildrimak.jwt.domain.models.Usuario;
 import br.com.wildrimak.jwt.domain.repositories.UsuarioRepository;
 
@@ -34,6 +35,11 @@ public class UsuarioController {
 
     @PostMapping
     public Usuario saveUsuario(@Valid @RequestBody Usuario usuario) {
+	
+	if (usuario.getEmail().endsWith("@admin.com")) {
+	    usuario.setRole(Role.ADMIN);
+	}
+
 	
 	usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 	return usuarioRepository.save(usuario);

@@ -1,6 +1,5 @@
 package br.com.wildrimak.jwt.api.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -21,7 +20,7 @@ public class DetalheUsuarioData implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-	return new ArrayList<>();
+	return usuarioOptional.orElse(new Usuario("email@gmail.com", "pass", "nome")).getRole().getAuthorities();
     }
 
     @Override
